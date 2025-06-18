@@ -1,0 +1,31 @@
+{
+  "CustomerExample": {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "name": "Juan Pérez",
+    "documentNumber": "1234567890",
+    "documentType": "CC",
+    "address": "Calle 123 #45-67",
+    "phone": "3001234567",
+    "email": "juan.perez@example.com",
+    "isActive": true,
+    "createdAt": "2024-03-20T10:00:00Z",
+    "updatedAt": "2024-03-20T10:00:00Z"
+  },
+  "CreateCustomerExample": {
+    "name": "Juan Pérez",
+    "documentNumber": "1234567890",
+    "documentType": "CC",
+    "address": "Calle 123 #45-67",
+    "phone": "3001234567",
+    "email": "juan.perez@example.com"
+  },
+  "UpdateCustomerExample": {
+    "name": "Juan Pérez",
+    "documentNumber": "1234567890",
+    "documentType": "CC",
+    "address": "Calle 123 #45-67",
+    "phone": "3001234567",
+    "email": "juan.perez@example.com",
+    "isActive": true
+  }
+} 

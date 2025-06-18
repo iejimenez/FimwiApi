@@ -1,0 +1,212 @@
+{
+  "controller": {
+    "name": "Roles",
+    "basePath": "/api/v1/roles",
+    "endpoints": {
+      "GetAll": {
+        "method": "GET",
+        "path": "/roles",
+        "description": "Obtiene una lista paginada de roles",
+        "parameters": {
+          "pageNumber": {
+            "type": "integer",
+            "default": 1,
+            "description": "Número de página"
+          },
+          "pageSize": {
+            "type": "integer",
+            "default": 10,
+            "description": "Tamaño de página"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista paginada de roles",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/RoleDto"
+                  }
+                },
+                "pageNumber": {
+                  "type": "integer"
+                },
+                "pageSize": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "totalRecords": {
+                  "type": "integer"
+                },
+                "hasPreviousPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "GetById": {
+        "method": "GET",
+        "path": "/roles/{id}",
+        "description": "Obtiene un rol por su ID",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del rol"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rol encontrado",
+            "schema": {
+              "$ref": "#/definitions/RoleDto"
+            }
+          },
+          "404": {
+            "description": "Rol no encontrado"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "Create": {
+        "method": "POST",
+        "path": "/roles",
+        "description": "Crea un nuevo rol",
+        "parameters": {
+          "body": {
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/CreateRoleDto"
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Rol creado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/RoleDto"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "Update": {
+        "method": "PUT",
+        "path": "/roles/{id}",
+        "description": "Actualiza un rol existente",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del rol"
+          },
+          "body": {
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/RoleDto"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rol actualizado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/RoleDto"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "404": {
+            "description": "Rol no encontrado"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "Delete": {
+        "method": "DELETE",
+        "path": "/roles/{id}",
+        "description": "Elimina un rol",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del rol"
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Rol eliminado exitosamente"
+          },
+          "404": {
+            "description": "Rol no encontrado"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      }
+    },
+    "definitions": {
+      "RoleDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateRoleDto": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+} 

@@ -1,0 +1,277 @@
+{
+  "controller": {
+    "name": "Products",
+    "basePath": "/api/v1/products",
+    "endpoints": {
+      "GetAll": {
+        "method": "GET",
+        "path": "/products",
+        "description": "Obtiene una lista paginada de productos",
+        "parameters": {
+          "pageNumber": {
+            "type": "integer",
+            "default": 1,
+            "description": "Número de página"
+          },
+          "pageSize": {
+            "type": "integer",
+            "default": 10,
+            "description": "Tamaño de página"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista paginada de productos",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ProductDto"
+                  }
+                },
+                "pageNumber": {
+                  "type": "integer"
+                },
+                "pageSize": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "totalRecords": {
+                  "type": "integer"
+                },
+                "hasPreviousPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "GetById": {
+        "method": "GET",
+        "path": "/products/{id}",
+        "description": "Obtiene un producto por su ID",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del producto"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Producto encontrado",
+            "schema": {
+              "$ref": "#/definitions/ProductDto"
+            }
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "Create": {
+        "method": "POST",
+        "path": "/products",
+        "description": "Crea un nuevo producto",
+        "parameters": {
+          "body": {
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/CreateProductDto"
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Producto creado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/ProductDto"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "Update": {
+        "method": "PUT",
+        "path": "/products/{id}",
+        "description": "Actualiza un producto existente",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del producto"
+          },
+          "body": {
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/ProductDto"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Producto actualizado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/ProductDto"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "Delete": {
+        "method": "DELETE",
+        "path": "/products/{id}",
+        "description": "Elimina un producto",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del producto"
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Producto eliminado exitosamente"
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      }
+    },
+    "definitions": {
+      "ProductDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "barcode": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "minStock": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "maxStock": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "currentStock": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "categoryId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "category": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateProductDto": {
+        "type": "object",
+        "required": ["name", "sku", "price", "categoryId"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50
+          },
+          "barcode": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "decimal",
+            "minimum": 0
+          },
+          "minStock": {
+            "type": "number",
+            "format": "decimal",
+            "minimum": 0
+          },
+          "maxStock": {
+            "type": "number",
+            "format": "decimal",
+            "minimum": 0
+          },
+          "categoryId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    }
+  }
+} 

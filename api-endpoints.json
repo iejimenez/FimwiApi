@@ -1,0 +1,320 @@
+{
+  "baseUrl": "/api",
+  "version": "v1",
+  "endpoints": {
+    "auth": {
+      "login": {
+        "path": "/auth/login",
+        "method": "POST",
+        "description": "Authenticate user and get JWT token",
+        "request": {
+          "body": {
+            "email": "string",
+            "password": "string"
+          }
+        },
+        "response": {
+          "user": {
+            "id": "Guid",
+            "username": "string",
+            "email": "string",
+            "role": "string"
+          },
+          "token": "string"
+        }
+      },
+      "logout": {
+        "path": "/auth/logout",
+        "method": "POST",
+        "description": "Logout user and invalidate token",
+        "headers": {
+          "Authorization": "Bearer {token}"
+        }
+      }
+    },
+    "products": {
+      "list": {
+        "path": "/products",
+        "method": "GET",
+        "description": "Get all products with optional filtering",
+        "queryParams": {
+          "search": "string (optional)",
+          "category": "string (optional)",
+          "page": "number (optional)",
+          "pageSize": "number (optional)"
+        },
+        "response": {
+          "items": "Product[]",
+          "total": "number",
+          "page": "number",
+          "pageSize": "number"
+        }
+      },
+      "getById": {
+        "path": "/products/{id}",
+        "method": "GET",
+        "description": "Get product by ID",
+        "response": "Product"
+      },
+      "create": {
+        "path": "/products",
+        "method": "POST",
+        "description": "Create new product",
+        "request": {
+          "body": "Product (without id)"
+        },
+        "response": "Product"
+      },
+      "update": {
+        "path": "/products/{id}",
+        "method": "PUT",
+        "description": "Update existing product",
+        "request": {
+          "body": "Product"
+        },
+        "response": "Product"
+      },
+      "delete": {
+        "path": "/products/{id}",
+        "method": "DELETE",
+        "description": "Delete product"
+      }
+    },
+    "batches": {
+      "list": {
+        "path": "/products/{productId}/batches",
+        "method": "GET",
+        "description": "Get all batches for a product",
+        "response": "Batch[]"
+      },
+      "create": {
+        "path": "/products/{productId}/batches",
+        "method": "POST",
+        "description": "Create new batch for a product",
+        "request": {
+          "body": "Batch (without id and productId)"
+        },
+        "response": "Batch"
+      },
+      "update": {
+        "path": "/batches/{id}",
+        "method": "PUT",
+        "description": "Update existing batch",
+        "request": {
+          "body": "Batch"
+        },
+        "response": "Batch"
+      },
+      "delete": {
+        "path": "/batches/{id}",
+        "method": "DELETE",
+        "description": "Delete batch"
+      }
+    },
+    "suppliers": {
+      "list": {
+        "path": "/suppliers",
+        "method": "GET",
+        "description": "Get all suppliers with optional filtering",
+        "queryParams": {
+          "search": "string (optional)",
+          "page": "number (optional)",
+          "pageSize": "number (optional)"
+        },
+        "response": {
+          "items": "Supplier[]",
+          "total": "number",
+          "page": "number",
+          "pageSize": "number"
+        }
+      },
+      "getById": {
+        "path": "/suppliers/{id}",
+        "method": "GET",
+        "description": "Get supplier by ID",
+        "response": "Supplier"
+      },
+      "create": {
+        "path": "/suppliers",
+        "method": "POST",
+        "description": "Create new supplier",
+        "request": {
+          "body": "Supplier (without id)"
+        },
+        "response": "Supplier"
+      },
+      "update": {
+        "path": "/suppliers/{id}",
+        "method": "PUT",
+        "description": "Update existing supplier",
+        "request": {
+          "body": "Supplier"
+        },
+        "response": "Supplier"
+      },
+      "delete": {
+        "path": "/suppliers/{id}",
+        "method": "DELETE",
+        "description": "Delete supplier"
+      }
+    },
+    "purchaseOrders": {
+      "list": {
+        "path": "/suppliers/{supplierId}/orders",
+        "method": "GET",
+        "description": "Get all purchase orders for a supplier",
+        "response": "PurchaseOrder[]"
+      },
+      "getById": {
+        "path": "/orders/{id}",
+        "method": "GET",
+        "description": "Get purchase order by ID",
+        "response": "PurchaseOrder"
+      },
+      "create": {
+        "path": "/suppliers/{supplierId}/orders",
+        "method": "POST",
+        "description": "Create new purchase order",
+        "request": {
+          "body": "PurchaseOrder (without id and supplierId)"
+        },
+        "response": "PurchaseOrder"
+      },
+      "update": {
+        "path": "/orders/{id}",
+        "method": "PUT",
+        "description": "Update existing purchase order",
+        "request": {
+          "body": "PurchaseOrder"
+        },
+        "response": "PurchaseOrder"
+      },
+      "delete": {
+        "path": "/orders/{id}",
+        "method": "DELETE",
+        "description": "Delete purchase order"
+      }
+    },
+    "customers": {
+      "list": {
+        "path": "/customers",
+        "method": "GET",
+        "description": "Get all customers with optional filtering",
+        "queryParams": {
+          "search": "string (optional)",
+          "page": "number (optional)",
+          "pageSize": "number (optional)"
+        },
+        "response": {
+          "items": "Customer[]",
+          "total": "number",
+          "page": "number",
+          "pageSize": "number"
+        }
+      },
+      "getById": {
+        "path": "/customers/{id}",
+        "method": "GET",
+        "description": "Get customer by ID",
+        "response": "Customer"
+      },
+      "create": {
+        "path": "/customers",
+        "method": "POST",
+        "description": "Create new customer",
+        "request": {
+          "body": "Customer (without id)"
+        },
+        "response": "Customer"
+      },
+      "update": {
+        "path": "/customers/{id}",
+        "method": "PUT",
+        "description": "Update existing customer",
+        "request": {
+          "body": "Customer"
+        },
+        "response": "Customer"
+      },
+      "delete": {
+        "path": "/customers/{id}",
+        "method": "DELETE",
+        "description": "Delete customer"
+      }
+    },
+    "invoices": {
+      "list": {
+        "path": "/customers/{customerId}/invoices",
+        "method": "GET",
+        "description": "Get all invoices for a customer",
+        "response": "Invoice[]"
+      },
+      "getById": {
+        "path": "/invoices/{id}",
+        "method": "GET",
+        "description": "Get invoice by ID",
+        "response": "Invoice"
+      },
+      "create": {
+        "path": "/customers/{customerId}/invoices",
+        "method": "POST",
+        "description": "Create new invoice",
+        "request": {
+          "body": "Invoice (without id and customerId)"
+        },
+        "response": "Invoice"
+      },
+      "update": {
+        "path": "/invoices/{id}",
+        "method": "PUT",
+        "description": "Update existing invoice",
+        "request": {
+          "body": "Invoice"
+        },
+        "response": "Invoice"
+      },
+      "delete": {
+        "path": "/invoices/{id}",
+        "method": "DELETE",
+        "description": "Delete invoice"
+      }
+    }
+  },
+  "commonHeaders": {
+    "Authorization": "Bearer {token}",
+    "Content-Type": "application/json"
+  },
+  "errorResponses": {
+    "400": {
+      "description": "Bad Request",
+      "body": {
+        "message": "string",
+        "errors": "object"
+      }
+    },
+    "401": {
+      "description": "Unauthorized",
+      "body": {
+        "message": "string"
+      }
+    },
+    "403": {
+      "description": "Forbidden",
+      "body": {
+        "message": "string"
+      }
+    },
+    "404": {
+      "description": "Not Found",
+      "body": {
+        "message": "string"
+      }
+    },
+    "500": {
+      "description": "Internal Server Error",
+      "body": {
+        "message": "string"
+      }
+    }
+  }
+} 

@@ -1,0 +1,118 @@
+{
+  "Customer": {
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Identificador único del cliente"
+      },
+      "name": {
+        "type": "string",
+        "description": "Nombre del cliente"
+      },
+      "documentNumber": {
+        "type": "string",
+        "description": "Número de documento del cliente"
+      },
+      "documentType": {
+        "type": "string",
+        "description": "Tipo de documento del cliente (CC, TI, CE, NIT)",
+        "enum": ["CC", "TI", "CE", "NIT"]
+      },
+      "address": {
+        "type": "string",
+        "description": "Dirección del cliente"
+      },
+      "phone": {
+        "type": "string",
+        "description": "Número de teléfono del cliente"
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "description": "Correo electrónico del cliente"
+      },
+      "isActive": {
+        "type": "boolean",
+        "description": "Indica si el cliente está activo"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Fecha y hora de creación del registro"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Fecha y hora de la última actualización del registro"
+      }
+    },
+    "required": ["name", "documentNumber", "documentType", "email"]
+  },
+  "CreateCustomer": {
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Nombre del cliente"
+      },
+      "documentNumber": {
+        "type": "string",
+        "description": "Número de documento del cliente"
+      },
+      "documentType": {
+        "type": "string",
+        "description": "Tipo de documento del cliente (CC, TI, CE, NIT)",
+        "enum": ["CC", "TI", "CE", "NIT"]
+      },
+      "address": {
+        "type": "string",
+        "description": "Dirección del cliente"
+      },
+      "phone": {
+        "type": "string",
+        "description": "Número de teléfono del cliente"
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "description": "Correo electrónico del cliente"
+      }
+    },
+    "required": ["name", "documentNumber", "documentType", "email"]
+  },
+  "UpdateCustomer": {
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Nombre del cliente"
+      },
+      "documentNumber": {
+        "type": "string",
+        "description": "Número de documento del cliente"
+      },
+      "documentType": {
+        "type": "string",
+        "description": "Tipo de documento del cliente (CC, TI, CE, NIT)",
+        "enum": ["CC", "TI", "CE", "NIT"]
+      },
+      "address": {
+        "type": "string",
+        "description": "Dirección del cliente"
+      },
+      "phone": {
+        "type": "string",
+        "description": "Número de teléfono del cliente"
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "description": "Correo electrónico del cliente"
+      },
+      "isActive": {
+        "type": "boolean",
+        "description": "Indica si el cliente está activo"
+      }
+    },
+    "required": ["name", "documentNumber", "documentType", "email"]
+  }
+} 

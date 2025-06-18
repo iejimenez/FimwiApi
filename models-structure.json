@@ -1,0 +1,122 @@
+{
+  "models": {
+    "User": {
+      "properties": [
+        { "name": "Id", "type": "Guid", "isRequired": true },
+        { "name": "Username", "type": "string", "isRequired": true, "maxLength": 50 },
+        { "name": "Email", "type": "string", "isRequired": true, "maxLength": 100, "isEmail": true },
+        { "name": "PasswordHash", "type": "string", "isRequired": true },
+        { "name": "Role", "type": "string", "isRequired": true, "enum": ["admin", "user"] },
+        { "name": "CreatedAt", "type": "DateTime", "isRequired": true },
+        { "name": "UpdatedAt", "type": "DateTime", "isRequired": true }
+      ]
+    },
+    "Product": {
+      "properties": [
+        { "name": "Id", "type": "Guid", "isRequired": true },
+        { "name": "Sku", "type": "string", "isRequired": true, "maxLength": 20, "isUnique": true },
+        { "name": "Name", "type": "string", "isRequired": true, "maxLength": 100 },
+        { "name": "Description", "type": "string", "maxLength": 500 },
+        { "name": "Category", "type": "string", "isRequired": true, "maxLength": 50 },
+        { "name": "UnitPrice", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "MinStock", "type": "int", "isRequired": true, "minValue": 0 },
+        { "name": "MaxStock", "type": "int", "isRequired": true, "minValue": 0 },
+        { "name": "CurrentStock", "type": "int", "isRequired": true, "minValue": 0 },
+        { "name": "CreatedAt", "type": "DateTime", "isRequired": true },
+        { "name": "UpdatedAt", "type": "DateTime", "isRequired": true }
+      ]
+    },
+    "Batch": {
+      "properties": [
+        { "name": "Id", "type": "Guid", "isRequired": true },
+        { "name": "ProductId", "type": "Guid", "isRequired": true, "isForeignKey": true },
+        { "name": "BatchNumber", "type": "string", "isRequired": true, "maxLength": 20, "isUnique": true },
+        { "name": "Quantity", "type": "int", "isRequired": true, "minValue": 1 },
+        { "name": "PurchasePrice", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "ManufacturingDate", "type": "DateTime", "isRequired": true },
+        { "name": "ExpirationDate", "type": "DateTime", "isRequired": true },
+        { "name": "Status", "type": "string", "isRequired": true, "enum": ["active", "expired", "depleted"] },
+        { "name": "CreatedAt", "type": "DateTime", "isRequired": true },
+        { "name": "UpdatedAt", "type": "DateTime", "isRequired": true }
+      ]
+    },
+    "Supplier": {
+      "properties": [
+        { "name": "Id", "type": "Guid", "isRequired": true },
+        { "name": "Code", "type": "string", "isRequired": true, "maxLength": 20, "isUnique": true },
+        { "name": "Name", "type": "string", "isRequired": true, "maxLength": 100 },
+        { "name": "ContactName", "type": "string", "isRequired": true, "maxLength": 100 },
+        { "name": "Email", "type": "string", "isRequired": true, "maxLength": 100, "isEmail": true },
+        { "name": "Phone", "type": "string", "isRequired": true, "maxLength": 20 },
+        { "name": "Address", "type": "string", "isRequired": true, "maxLength": 200 },
+        { "name": "TaxId", "type": "string", "isRequired": true, "maxLength": 20 },
+        { "name": "CreatedAt", "type": "DateTime", "isRequired": true },
+        { "name": "UpdatedAt", "type": "DateTime", "isRequired": true }
+      ]
+    },
+    "PurchaseOrder": {
+      "properties": [
+        { "name": "Id", "type": "Guid", "isRequired": true },
+        { "name": "SupplierId", "type": "Guid", "isRequired": true, "isForeignKey": true },
+        { "name": "OrderNumber", "type": "string", "isRequired": true, "maxLength": 20, "isUnique": true },
+        { "name": "Date", "type": "DateTime", "isRequired": true },
+        { "name": "Status", "type": "string", "isRequired": true, "enum": ["draft", "pending", "approved", "received", "cancelled"] },
+        { "name": "Items", "type": "List<PurchaseOrderItem>", "isRequired": true },
+        { "name": "Subtotal", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "Tax", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "Total", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "CreatedAt", "type": "DateTime", "isRequired": true },
+        { "name": "UpdatedAt", "type": "DateTime", "isRequired": true }
+      ]
+    },
+    "PurchaseOrderItem": {
+      "properties": [
+        { "name": "Id", "type": "Guid", "isRequired": true },
+        { "name": "PurchaseOrderId", "type": "Guid", "isRequired": true, "isForeignKey": true },
+        { "name": "ProductId", "type": "Guid", "isRequired": true, "isForeignKey": true },
+        { "name": "Quantity", "type": "int", "isRequired": true, "minValue": 1 },
+        { "name": "UnitPrice", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "Subtotal", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 }
+      ]
+    },
+    "Customer": {
+      "properties": [
+        { "name": "Id", "type": "Guid", "isRequired": true },
+        { "name": "Code", "type": "string", "isRequired": true, "maxLength": 20, "isUnique": true },
+        { "name": "Name", "type": "string", "isRequired": true, "maxLength": 100 },
+        { "name": "ContactName", "type": "string", "isRequired": true, "maxLength": 100 },
+        { "name": "Email", "type": "string", "isRequired": true, "maxLength": 100, "isEmail": true },
+        { "name": "Phone", "type": "string", "isRequired": true, "maxLength": 20 },
+        { "name": "Address", "type": "string", "isRequired": true, "maxLength": 200 },
+        { "name": "TaxId", "type": "string", "isRequired": true, "maxLength": 20 },
+        { "name": "CreatedAt", "type": "DateTime", "isRequired": true },
+        { "name": "UpdatedAt", "type": "DateTime", "isRequired": true }
+      ]
+    },
+    "Invoice": {
+      "properties": [
+        { "name": "Id", "type": "Guid", "isRequired": true },
+        { "name": "CustomerId", "type": "Guid", "isRequired": true, "isForeignKey": true },
+        { "name": "InvoiceNumber", "type": "string", "isRequired": true, "maxLength": 20, "isUnique": true },
+        { "name": "Date", "type": "DateTime", "isRequired": true },
+        { "name": "Status", "type": "string", "isRequired": true, "enum": ["draft", "sent", "paid", "cancelled"] },
+        { "name": "Items", "type": "List<InvoiceItem>", "isRequired": true },
+        { "name": "Subtotal", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "Tax", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "Total", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "CreatedAt", "type": "DateTime", "isRequired": true },
+        { "name": "UpdatedAt", "type": "DateTime", "isRequired": true }
+      ]
+    },
+    "InvoiceItem": {
+      "properties": [
+        { "name": "Id", "type": "Guid", "isRequired": true },
+        { "name": "InvoiceId", "type": "Guid", "isRequired": true, "isForeignKey": true },
+        { "name": "ProductId", "type": "Guid", "isRequired": true, "isForeignKey": true },
+        { "name": "Quantity", "type": "int", "isRequired": true, "minValue": 1 },
+        { "name": "UnitPrice", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 },
+        { "name": "Subtotal", "type": "decimal", "isRequired": true, "precision": 18, "scale": 2 }
+      ]
+    }
+  }
+} 

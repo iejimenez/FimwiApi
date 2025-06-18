@@ -1,0 +1,241 @@
+{
+  "controller": {
+    "name": "Users",
+    "basePath": "/api/v1/users",
+    "endpoints": {
+      "GetAll": {
+        "method": "GET",
+        "path": "/users",
+        "description": "Obtiene una lista paginada de usuarios",
+        "parameters": {
+          "pageNumber": {
+            "type": "integer",
+            "default": 1,
+            "description": "Número de página"
+          },
+          "pageSize": {
+            "type": "integer",
+            "default": 10,
+            "description": "Tamaño de página"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista paginada de usuarios",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/UserDto"
+                  }
+                },
+                "pageNumber": {
+                  "type": "integer"
+                },
+                "pageSize": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "totalRecords": {
+                  "type": "integer"
+                },
+                "hasPreviousPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "GetById": {
+        "method": "GET",
+        "path": "/users/{id}",
+        "description": "Obtiene un usuario por su ID",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del usuario"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario encontrado",
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "Create": {
+        "method": "POST",
+        "path": "/users",
+        "description": "Crea un nuevo usuario",
+        "parameters": {
+          "body": {
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/CreateUserDto"
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "Update": {
+        "method": "PUT",
+        "path": "/users/{id}",
+        "description": "Actualiza un usuario existente",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del usuario"
+          },
+          "body": {
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "Delete": {
+        "method": "DELETE",
+        "path": "/users/{id}",
+        "description": "Elimina un usuario",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del usuario"
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Usuario eliminado exitosamente"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      }
+    },
+    "definitions": {
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "roleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "emailConfirmed": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "required": ["username", "email", "password", "roleId"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8
+          },
+          "roleId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    }
+  }
+} 
