@@ -49,13 +49,8 @@ namespace FimwiApi.Infrastructure.Repositories
 
         public async Task<bool> UpdateAsync(Customer customer)
         {
-            var existingCustomer = await _context.Customers.FindAsync(customer.Id);
-            if (existingCustomer == null)
-                return false;
-
-            _context.Entry(existingCustomer).CurrentValues.SetValues(customer);
-            existingCustomer.UpdatedAt = DateTime.UtcNow;
-            
+            // Since the customer is already tracked by EF Core, we just need to mark it as modified
+            _context.Entry(customer).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return true;
         }

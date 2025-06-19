@@ -1,0 +1,186 @@
+{
+  "controller": {
+    "name": "Suppliers",
+    "basePath": "/api/v1/suppliers",
+    "endpoints": {
+      "GetAll": {
+        "method": "GET",
+        "path": "/suppliers",
+        "description": "Obtiene una lista paginada de proveedores",
+        "parameters": {
+          "pageNumber": {
+            "type": "integer",
+            "default": 1,
+            "description": "Número de página"
+          },
+          "pageSize": {
+            "type": "integer",
+            "default": 10,
+            "description": "Tamaño de página"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista paginada de proveedores",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SupplierDto"
+                  }
+                },
+                "pageNumber": { "type": "integer" },
+                "pageSize": { "type": "integer" },
+                "totalPages": { "type": "integer" },
+                "totalRecords": { "type": "integer" },
+                "hasPreviousPage": { "type": "boolean" },
+                "hasNextPage": { "type": "boolean" }
+              }
+            }
+          },
+          "401": { "description": "No autorizado" }
+        }
+      },
+      "GetById": {
+        "method": "GET",
+        "path": "/suppliers/{id}",
+        "description": "Obtiene un proveedor por su ID",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del proveedor"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proveedor encontrado",
+            "schema": { "$ref": "#/definitions/SupplierDto" }
+          },
+          "404": { "description": "Proveedor no encontrado" },
+          "401": { "description": "No autorizado" }
+        }
+      },
+      "Create": {
+        "method": "POST",
+        "path": "/suppliers",
+        "description": "Crea un nuevo proveedor",
+        "parameters": {
+          "body": {
+            "type": "object",
+            "schema": { "$ref": "#/definitions/CreateSupplier" }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Proveedor creado exitosamente",
+            "schema": { "$ref": "#/definitions/SupplierDto" }
+          },
+          "400": { "description": "Datos inválidos" },
+          "401": { "description": "No autorizado" }
+        }
+      },
+      "Update": {
+        "method": "PUT",
+        "path": "/suppliers/{id}",
+        "description": "Actualiza un proveedor existente",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del proveedor"
+          },
+          "body": {
+            "type": "object",
+            "schema": { "$ref": "#/definitions/UpdateSupplier" }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proveedor actualizado exitosamente",
+            "schema": { "$ref": "#/definitions/SupplierDto" }
+          },
+          "400": { "description": "Datos inválidos" },
+          "404": { "description": "Proveedor no encontrado" },
+          "401": { "description": "No autorizado" }
+        }
+      },
+      "Delete": {
+        "method": "DELETE",
+        "path": "/suppliers/{id}",
+        "description": "Elimina un proveedor",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del proveedor"
+          }
+        },
+        "responses": {
+          "204": { "description": "Proveedor eliminado exitosamente" },
+          "404": { "description": "Proveedor no encontrado" },
+          "401": { "description": "No autorizado" }
+        }
+      }
+    },
+    "definitions": {
+      "SupplierDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "code": { "type": "string" },
+          "name": { "type": "string" },
+          "contactName": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "phone": { "type": "string" },
+          "address": { "type": "string" },
+          "documentType": {
+            "type": "string",
+            "description": "Tipo de documento (CC, CE, TI, NIT)",
+            "enum": ["CC", "CE", "TI", "NIT"]
+          },
+          "documentNumber": { "type": "string" }
+        },
+        "required": ["code", "name", "contactName", "email", "phone", "address", "documentType", "documentNumber"]
+      },
+      "CreateSupplier": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "name": { "type": "string" },
+          "contactName": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "phone": { "type": "string" },
+          "address": { "type": "string" },
+          "documentType": {
+            "type": "string",
+            "description": "Tipo de documento (CC, CE, TI, NIT)",
+            "enum": ["CC", "CE", "TI", "NIT"]
+          },
+          "documentNumber": { "type": "string" }
+        },
+        "required": ["code", "name", "contactName", "email", "phone", "address", "documentType", "documentNumber"]
+      },
+      "UpdateSupplier": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "name": { "type": "string" },
+          "contactName": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "phone": { "type": "string" },
+          "address": { "type": "string" },
+          "documentType": {
+            "type": "string",
+            "description": "Tipo de documento (CC, CE, TI, NIT)",
+            "enum": ["CC", "CE", "TI", "NIT"]
+          },
+          "documentNumber": { "type": "string" }
+        },
+        "required": ["code", "name", "contactName", "email", "phone", "address", "documentType", "documentNumber"]
+      }
+    }
+  }
+} 

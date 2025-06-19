@@ -21,11 +21,6 @@ namespace FimwiApi.Infrastructure.Repositories
             return await _dbSet.FirstOrDefaultAsync(s => s.Code == code);
         }
 
-        public async Task<Supplier?> GetByTaxIdAsync(string taxId)
-        {
-            return await _dbSet.FirstOrDefaultAsync(s => s.TaxId == taxId);
-        }
-
         public async Task<IEnumerable<Supplier>> SearchAsync(string searchTerm, int pageNumber, int pageSize)
         {
             var query = _dbSet.AsQueryable();
@@ -34,8 +29,7 @@ namespace FimwiApi.Infrastructure.Repositories
             {
                 query = query.Where(s => 
                     s.Name.Contains(searchTerm) || 
-                    s.Code.Contains(searchTerm) || 
-                    s.TaxId.Contains(searchTerm));
+                    s.Code.Contains(searchTerm));
             }
 
             return await query

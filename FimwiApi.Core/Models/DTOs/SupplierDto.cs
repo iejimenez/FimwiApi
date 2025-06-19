@@ -11,6 +11,7 @@ namespace FimwiApi.Core.Models.DTOs
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public string TaxId { get; set; }
+        public string DocumentType { get; set; } // Only allowed: "CC", "CE", "TI", "NIT"
+        public string DocumentNumber { get; set; }
     }
 } 

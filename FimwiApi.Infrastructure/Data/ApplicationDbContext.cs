@@ -32,11 +32,6 @@ namespace FimwiApi.Infrastructure.Data
                 .HasIndex(p => p.Sku)
                 .IsUnique();
 
-            // Configuración de Supplier
-            modelBuilder.Entity<Supplier>()
-                .HasIndex(s => s.TaxId)
-                .IsUnique();
-
             // Configuración de PurchaseOrder
             modelBuilder.Entity<PurchaseOrder>()
                 .HasIndex(po => po.OrderNumber)

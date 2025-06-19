@@ -100,14 +100,18 @@ namespace FimwiApi.Application.Services
                 throw new ValidationException("A customer with this tax ID already exists");
             }
 
-            var customer = _mapper.Map<Customer>(customerDto);
-            customer.UpdatedAt = DateTime.UtcNow;
-            customer.CreatedAt = existingCustomer.CreatedAt; // Preserve original creation date
+            existingCustomer.Name = customerDto.Name;
+            existingCustomer.DocumentType = customerDto.DocumentType;
+            existingCustomer.DocumentNumber = customerDto.DocumentNumber;
+            existingCustomer.Email = customerDto.Email;
+            existingCustomer.Phone = customerDto.Phone;
+            existingCustomer.Address = customerDto.Address;
+            existingCustomer.UpdatedAt = DateTime.UtcNow;
 
-            await _customerRepository.UpdateAsync(customer);
+            await _customerRepository.UpdateAsync(existingCustomer);
             await _unitOfWork.SaveChangesAsync();
 
-            return _mapper.Map<CustomerDto>(customer);
+            return _mapper.Map<CustomerDto>(existingCustomer);
         }
 
         public async Task DeleteAsync(Guid id)

@@ -1,5 +1,6 @@
 using FluentValidation;
 using FimwiApi.Core.Entities;
+using System.Linq;
 
 namespace FimwiApi.Core.Validators
 {
@@ -32,7 +33,12 @@ namespace FimwiApi.Core.Validators
                 .NotEmpty()
                 .MaximumLength(200);
 
-            RuleFor(x => x.TaxId)
+            RuleFor(x => x.DocumentType)
+                .NotEmpty()
+                .Must(dt => new[] { "CC", "CE", "TI", "NIT" }.Contains(dt))
+                .WithMessage("DocumentType must be one of: CC, CE, TI, NIT");
+
+            RuleFor(x => x.DocumentNumber)
                 .NotEmpty()
                 .MaximumLength(20);
         }

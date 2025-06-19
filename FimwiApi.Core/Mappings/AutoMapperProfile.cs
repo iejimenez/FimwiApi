@@ -12,6 +12,7 @@ namespace FimwiApi.Core.Mappings
             CreateMap<Product, ProductDto>();
             CreateMap<Batch, BatchDto>();
             CreateMap<Supplier, SupplierDto>();
+            CreateMap<SupplierDto, Supplier>();
             CreateMap<PurchaseOrder, PurchaseOrderDto>();
             CreateMap<PurchaseOrderItem, PurchaseOrderItemDto>();
             CreateMap<Customer, CustomerDto>();
