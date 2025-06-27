@@ -13,7 +13,6 @@ namespace FimwiApi.Core.Entities
         public string Address { get; set; }
         public string DocumentType { get; set; } // Only allowed: "CC", "CE", "TI", "NIT"
         public string DocumentNumber { get; set; }
-        public string Notes { get; set; }
         public bool IsActive { get; set; }
         public ICollection<PurchaseOrder> PurchaseOrders { get; set; }
     }
